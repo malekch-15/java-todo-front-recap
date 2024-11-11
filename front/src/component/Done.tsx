@@ -5,7 +5,7 @@ import Delete from "./delete.tsx";
 
 type Done={
     dones:Todolist[]
-    setDones?: React.Dispatch<React.SetStateAction<Todolist[]>>;
+    setDones: React.Dispatch<React.SetStateAction<Todolist[]>>;
 }
 
 export default function Done ({dones,setDones}:Done){
@@ -13,10 +13,15 @@ export default function Done ({dones,setDones}:Done){
 
     // Handler to show details
     const handleShowDetails = (id: string) => {
-        setSelectedTodoId(id);
+        setSelectedTodoId(prevState => (prevState === id ? null:id));
     };
     const handeldelete=()=>{
-        setDones(dones.filter((todo)=>todo.id !== selectedTodoId));
+        if (setDones) {
+            setDones(dones.filter((todo)=>todo.id !== selectedTodoId));
+            setSelectedTodoId(null);
+        } else {
+            console.error("setLists is undefined");
+        }
     }
     return(
         <>
@@ -26,7 +31,7 @@ export default function Done ({dones,setDones}:Done){
                         <li key={prog.id}>
                             <strong>{prog.description}</strong>
                             <button onClick={() => handleShowDetails(prog.id)}>Details</button>
-                            <Delete id={prog.id} onDeleteSuccess={handeldelete}/>
+                            <Delete id={prog.id} onDeleteSuccess={() => handeldelete()} />
                         </li>
                     )
                 )}
