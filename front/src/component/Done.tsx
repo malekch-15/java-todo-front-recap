@@ -38,7 +38,7 @@ export default function Done ({dones,setDones}:Done){
             </ul>
             {selectedTodoId && (
                 <div>
-                    <Details id={selectedTodoId} />
+                    <Details id={selectedTodoId} setTodos={setDones} />
 
                 </div>
             )}

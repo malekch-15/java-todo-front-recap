@@ -4,12 +4,14 @@ import {Status, Todolist} from "../App.tsx";
 import {useParams} from "react-router-dom";
 import Update from "./Update.tsx";
 type DetailsProps = {
-    id?: string; // Make id optional
+    id?: string;
+    // Make id optional
+    setTodos:React.Dispatch<React.SetStateAction<Todolist[]>>
 };
 
-export default function Details({id}:DetailsProps){
+export default function Details({id,setTodos}:DetailsProps){
     const { id: paramId } = useParams<{ id: string }>();
-    const [todo, setTodo] = useState<Todolist| null>(null);
+    const [todo, setTodo] = useState<Todolist | undefined>();
     const todoId = id || paramId;
     const fetchTodoDetails = () => {
         if (todoId) {
@@ -50,6 +52,8 @@ export default function Details({id}:DetailsProps){
                 updated={handleUpdateSuccess}
                 currentStatus={todo.status}
                 description={todo.description}
+                setTodos={setTodos}
+                setTodo={setTodo}
             />
         </div>
     );

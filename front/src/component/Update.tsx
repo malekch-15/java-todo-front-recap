@@ -1,27 +1,34 @@
 
 import axios from "axios";
-import {Status} from "../App.tsx";
+import {Status, Todolist} from "../App.tsx";
 import {useState} from "react";
 type updatedlist={
     id:string
    updated:(newStatus: Status)=>void
     description: string;
-    currentStatus:Status
+    currentStatus:Status;
+    setTodos: React.Dispatch<React.SetStateAction<Todolist[]>>;
+    setTodo:React.Dispatch<React.SetStateAction<Todolist | undefined >>;
 
 }
-
-export default function Update({id,updated,description,currentStatus}:updatedlist){
+export default function Update({id,updated,description,currentStatus,setTodos,setTodo}:updatedlist ){
     const [selectedStatus, setSelectedStatus] = useState<Status>(currentStatus);
 
+
     const handelupdate = () => {
-        axios.put(`/api/todo/${id}/update`, {
+        const neutodo={
             id: id,
             status: selectedStatus,
             description: description
-        })
+        }
+        axios.put(`/api/todo/${id}/update`, neutodo )
             .then(() => {
                 console.log(`updated ${id}`)
                 updated(selectedStatus);
+                setTodo((prevTodo) =>
+                    prevTodo ? { ...prevTodo, status: selectedStatus } : prevTodo
+                );
+                setTodos((prevState)=>prevState?.map(prev=>prev.id === id ? neutodo:prev ))
             })
             .catch((error) => {
                     console.log("error updating the todo " + error);

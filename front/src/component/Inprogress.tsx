@@ -30,8 +30,6 @@ export default function Inprogress({proglist,setlist}:Prog){
                     <strong>{prog.description} </strong>
                     <button onClick={() => handleShowMore(prog.id)}>Show More</button>
                     <Delete id={prog.id} onDeleteSuccess={()=>handeldelet(prog.id)}/>
-                 
-
                 </li>
             ))
             }

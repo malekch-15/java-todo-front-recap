@@ -39,11 +39,11 @@ function App() {
         <Routes>
            <Route path={"/"} element={ <>
                <Todo lists={todo} setlists={setTodo}/>
-               <Done dones={todo} setDones={setTodo}/>
                <Inprogress proglist={todo} setlist={setTodo}/>
-               <AddTodo/>
+               <Done dones={todo} setDones={setTodo}/>
+               <AddTodo setTodos={setTodo} todos={todo}/>
            </>} />
-            <Route path={"/todo/:id"} element={<Details/>} />
+            <Route path={"/todo/:id"} element={<Details setTodos={setTodo}/>} />
         </Routes>
 
     </>
