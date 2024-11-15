@@ -25,7 +25,7 @@ export default function Done ({dones,setDones}:Done){
     }
     return(
         <>
-            <h2> Done</h2>
+            <h2> Donee</h2>
             <ul>
                 {dones.filter(p=>p.status==="DONE").map(prog=>(
                         <li key={prog.id}>
