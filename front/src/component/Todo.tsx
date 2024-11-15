@@ -29,7 +29,7 @@ export default function Todo({ lists,setlists }: TodoProps) {
     }
     return (
         <div>
-            <h2>ToDo List</h2>
+            <h2>To ToDo List</h2>
             <ul>
                 {/* Filter and display only OPEN todos */}
                 {lists
