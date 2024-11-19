@@ -8,9 +8,10 @@ import Delete from "./delete.tsx";
 type TodoProps = {
     lists: Todolist[];
     setlists: React.Dispatch<React.SetStateAction<Todolist[]>>;
+    user:string|undefined
 };
 
-export default function Todo({ lists,setlists }: TodoProps) {
+export default function Todo({ lists,setlists,user }: TodoProps) {
 
     const navigate = useNavigate();
 
@@ -38,7 +39,7 @@ export default function Todo({ lists,setlists }: TodoProps) {
                         <li key={todo.id}>
                             <strong>{todo.description}</strong>
                             <button onClick={() => handleShowMore(todo.id)}>Show More</button>
-                            <Delete id={todo.id} onDeleteSuccess={()=>handeleletbutton(todo.id)}/>
+                            {user&& <Delete id={todo.id} onDeleteSuccess={()=>handeleletbutton(todo.id)}/>}
                         </li>
                     ))}
             </ul>
